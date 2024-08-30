@@ -1,0 +1,30 @@
+function getDeliveryInfo() {
+    const postcode = document.getElementById('postcode').value.trim();
+    const infoDiv = document.getElementById('info');
+    infoDiv.innerHTML = '';
+
+    if (postcode) {
+        fetch(`https://deniswang88.github.io/delivery-info-api/deliveryData.json`)
+            .then(response => response.json())
+            .then(data => {
+                if (data[postcode]) {
+                    const deliveryInfo = data[postcode];
+                    infoDiv.innerHTML = `
+                        <p><strong>Delivery Methods:</strong> ${deliveryInfo.deliveryMethods.join(', ')}</p>
+                        <p><strong>Delivery Days:</strong> ${deliveryInfo.deliveryDays.join(', ')}</p>
+                        <p><strong>Free Shipping Threshold:</strong> $${deliveryInfo.deliveryFee}</p>
+                        <p><strong>Shipping Fee for Orders Below the Threshold:</strong> $${deliveryInfo.freeDeliveryThreshold}</p>
+                        <p><strong>Items eligible for this delivery method:</strong> ${deliveryInfo.eligible_Items}</p>
+                        <p><br><strong>Note:</strong> ${deliveryInfo.note}</p>
+                    `;
+                } else {
+                    infoDiv.innerHTML = '<p>No delivery information available for this postcode.</p>';
+                }
+            })
+            .catch(error => {
+                infoDiv.innerHTML = `<p>Error fetching delivery information: ${error.message}</p>`;
+            });
+    } else {
+        infoDiv.innerHTML = '<p>Please enter a valid postcode.</p>';
+    }
+}
