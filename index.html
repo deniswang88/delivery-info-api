@@ -4,20 +4,35 @@ function getDeliveryInfo() {
     infoDiv.innerHTML = '';
 
     if (postcode) {
-        fetch(`https://deniswang88.github.io/delivery-info-api/deliveryData.json`)
+         fetch(`https://deniswang88.github.io/delivery-info-api/deliveryData.json`)
             .then(response => response.json())
             .then(data => {
-                if (data[postcode]) {
-                    const deliveryInfo = data[postcode];
-                    infoDiv.innerHTML = `
-                        <p><strong>Delivery Methods:</strong> ${deliveryInfo.deliveryMethods.join(', ')}</p>
-                        <p><strong>Delivery Days:</strong> ${deliveryInfo.deliveryDays.join(', ')}</p>
-                        <p><strong>Free Shipping Threshold:</strong> $${deliveryInfo.deliveryFee}</p>
-                        <p><strong>Shipping Fee for Orders Below the Threshold:</strong> $${deliveryInfo.freeDeliveryThreshold}</p>
-                        <p><strong>Items eligible for this delivery method:</strong> ${deliveryInfo.eligible_Items}</p>
-                        <p><br><strong>Note:</strong> ${deliveryInfo.note}</p>
-                    `;
-                } else {
+                let found = false;
+                
+                for (let range in data) {
+                    let ranges = range.split(',').map(r => r.trim());
+                    
+                    for (let r of ranges) {
+                        let [start, end] = r.split('-').map(Number);
+                        if (postcode >= start && postcode <= end) {
+                            const deliveryInfo = data[range];
+                            infoDiv.innerHTML = `
+                                <p><strong>Delivery Methods:</strong> ${deliveryInfo.deliveryMethods.join(', ')}</p>
+                                <p><strong>Delivery Days:</strong> ${deliveryInfo.deliveryDays.join(', ')}</p>
+                                <p><strong>Free Shipping Threshold:</strong> $${deliveryInfo.deliveryFee}</p>
+                                <p><strong>Shipping Fee for Orders Below the Threshold:</strong> $${deliveryInfo.freeDeliveryThreshold}</p>
+                                <p><strong>Items eligible for this delivery method:</strong> ${deliveryInfo.eligible_Items}</p>
+                                <p><br><strong>Note:</strong> ${deliveryInfo.note}</p>
+                            `;
+                            found = true;
+                            break;
+                        }
+                    }
+                    
+                    if (found) break;
+                }
+
+                if (!found) {
                     infoDiv.innerHTML = '<p>No delivery information available for this postcode.</p>';
                 }
             })
