@@ -99,7 +99,7 @@
         "eligible_Items": "All Products",
         "note": "Cut-off time for next available delivery is 10pm AEST."
     },
-    "2164, 2167, 2168, 2171, 2174, 2176, 2177, 2179, 2557, 2558, 2560, 2564-2567, 2570": {
+    "2164, 2167, 2168, 2171, 2174, 2176, 2177, 2179, 2557, 2558, 2560, 2564-2567": {
         "deliveryMethods": [
             "eBest Delivery"
         ],
