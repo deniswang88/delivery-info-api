@@ -83,7 +83,7 @@
             "Fri"
         ],
         "deliveryFee": 16,
-        "freeDeliveryThreshold": 59,
+        "freeDeliveryThreshold": "NA",
         "eligible_Items": "All Products",
         "note": "Cut-off time for next available delivery is 10pm AEST."
     },	
@@ -122,7 +122,7 @@
             "Sat"
         ],
         "deliveryFee": 20,
-        "freeDeliveryThreshold": 59,
+        "freeDeliveryThreshold": "NA",
         "eligible_Items": "All Products",
         "note": "Cut-off time for next available delivery is 10pm AEST."
     },
@@ -134,7 +134,7 @@
             "Wednesday"
         ],
         "deliveryFee": 20,
-        "freeDeliveryThreshold": 118,
+        "freeDeliveryThreshold": "NA",
         "eligible_Items": "All Products",
         "note": "Cut-off time for next available delivery is 10pm AEST."
     }
